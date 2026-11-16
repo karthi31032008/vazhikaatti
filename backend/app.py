@@ -19,6 +19,10 @@ create_tables()
 def home():
     return send_from_directory(FRONTEND_DIR, "index.html")
 
+@app.route("/<path:filename>")
+def frontend_files(filename):
+    return send_from_directory(FRONTEND_DIR, filename)
+
 
 # Services API
 @app.route("/api/services")
