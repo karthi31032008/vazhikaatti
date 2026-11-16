@@ -1,28 +1,44 @@
 
-// VazhiKaatti Frontend JavaScript
-
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("VazhiKaatti website loaded successfully!");
+    const serviceList = document.getElementById("service-list");
+    const message = document.getElementById("service-message");
 
-    // Explore Services
-    const exploreButton = document.querySelector(".btn");
+    async function loadServices() {
+        try {
+            const response = await fetch("/api/services");
 
-    if (exploreButton) {
-        exploreButton.addEventListener("click", function () {
-            document.querySelector("#services").scrollIntoView({
-                behavior: "smooth"
+            if (!response.ok) {
+                throw new Error("Unable to load services");
+            }
+
+            const data = await response.json();
+
+            serviceList.innerHTML = "";
+
+            data.services.forEach(function (service) {
+                const card = document.createElement("div");
+                card.className = "service-card";
+
+                const title = document.createElement("h3");
+                title.textContent = service.service_name;
+
+                const description = document.createElement("p");
+                description.textContent = service.description;
+
+                card.appendChild(title);
+                card.appendChild(description);
+                serviceList.appendChild(card);
             });
-        });
+
+            message.textContent = "Our available services";
+
+        } catch (error) {
+            message.textContent = "Services could not be loaded. Please try again.";
+            console.error(error);
+        }
     }
 
-    // Navigation links
-    const navLinks = document.querySelectorAll("nav a");
-
-    navLinks.forEach(function (link) {
-        link.addEventListener("click", function () {
-            console.log("Navigation:", link.textContent);
-        });
-    });
+    loadServices();
 
 });
