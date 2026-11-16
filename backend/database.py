@@ -2,12 +2,8 @@
 import sqlite3
 import os
 
-DATABASE_PATH = os.path.join(
-    os.path.dirname(__file__),
-    "..",
-    "database",
-    "vazhikaatti.db"
-)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE_PATH = os.path.join(BASE_DIR, "vazhikaatti.db")
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE_PATH)
@@ -15,8 +11,6 @@ def get_db_connection():
     return conn
 
 def create_tables():
-    os.makedirs(os.path.dirname(DATABASE_PATH), exist_ok=True)
-
     conn = get_db_connection()
     cursor = conn.cursor()
 
@@ -37,8 +31,7 @@ def create_tables():
             description TEXT NOT NULL,
             location TEXT,
             status TEXT DEFAULT 'Pending',
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users(id)
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
 
@@ -49,6 +42,22 @@ def create_tables():
             description TEXT
         )
     """)
+
+    cursor.execute("SELECT COUNT(*) FROM services")
+    count = cursor.fetchone()[0]
+
+    if count == 0:
+        services = [
+            ("Local Services", "Find local public services"),
+            ("Community Updates", "View community announcements"),
+            ("Report Issues", "Report local public problems"),
+            ("Connect People", "Connect with your community")
+        ]
+
+        cursor.executemany(
+            "INSERT INTO services (service_name, description) VALUES (?, ?)",
+            services
+        )
 
     conn.commit()
     conn.close()
