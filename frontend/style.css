@@ -468,3 +468,16 @@ body {
         font-size: 19px;
     }
 }
+
+.login-btn {
+    background: #075e54;
+    color: white !important;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.login-btn:hover {
+    background: #168b55;
+}
+
