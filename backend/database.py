@@ -1,3 +1,4 @@
+
 import sqlite3
 import os
 
@@ -15,6 +16,7 @@ def create_tables():
     conn = get_db_connection()
     cursor = conn.cursor()
 
+    # Users table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,10 +26,13 @@ def create_tables():
         )
     """)
 
+    # Complaints table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS complaints (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER,
+            name TEXT,
+            email TEXT,
             title TEXT NOT NULL,
             description TEXT NOT NULL,
             location TEXT,
@@ -36,6 +41,17 @@ def create_tables():
         )
     """)
 
+    # Add new columns if an older complaints table already exists
+    cursor.execute("PRAGMA table_info(complaints)")
+    existing_columns = [row["name"] for row in cursor.fetchall()]
+
+    if "name" not in existing_columns:
+        cursor.execute("ALTER TABLE complaints ADD COLUMN name TEXT")
+
+    if "email" not in existing_columns:
+        cursor.execute("ALTER TABLE complaints ADD COLUMN email TEXT")
+
+    # Services table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS services (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
