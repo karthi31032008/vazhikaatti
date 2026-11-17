@@ -1,1 +1,154 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Services | VazhiKaatti</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .services-page {
+            padding: 55px 8%;
+            min-height: 75vh;
+        }
+
+        .services-intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .services-intro h2 {
+            color: #075e54;
+            font-size: 36px;
+            margin: 12px 0;
+        }
+
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .directory-card {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            text-decoration: none;
+            color: #263b3b;
+            transition: 0.3s;
+            border: 1px solid #e5f0eb;
+        }
+
+        .directory-card:hover {
+            transform: translateY(-6px);
+            border-color: #168b55;
+        }
+
+        .directory-card .icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .directory-card h3 {
+            color: #075e54;
+            margin-bottom: 10px;
+        }
+
+        .directory-card p {
+            line-height: 1.6;
+            color: #64736f;
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #075e54;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="1000075942.jpg" alt="VazhiKaatti Logo">
+            <div>
+                <h1>VAZHIKAATTI</h1>
+                <p>Guiding Cities, Empowering Citizens.</p>
+            </div>
+        </a>
+
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="local-services.html" class="active">Services</a>
+            <a href="community.html">Community</a>
+            <a href="complaints.html">Complaints</a>
+            <a href="track.html">Track</a>
+        </nav>
+    </header>
+
+    <main class="services-page">
+
+        <a href="index.html" class="back-home">← Back to Home</a>
+
+        <div class="services-intro">
+            <span>VAZHIKAATTI DIRECTORY</span>
+            <h2>Local Services</h2>
+            <p>Find useful local service information in one place.</p>
+        </div>
+
+        <div class="directory-grid">
+
+            <a href="#" class="directory-card">
+                <div class="icon">🏥</div>
+                <h3>Healthcare</h3>
+                <p>Find nearby hospitals and health centres.</p>
+            </a>
+
+            <a href="#" class="directory-card">
+                <div class="icon">🎓</div>
+                <h3>Education</h3>
+                <p>Explore schools, colleges and learning resources.</p>
+            </a>
+
+            <a href="#" class="directory-card">
+                <div class="icon">🚌</div>
+                <h3>Transportation</h3>
+                <p>Access local transport information.</p>
+            </a>
+
+            <a href="#" class="directory-card">
+                <div class="icon">💧</div>
+                <h3>Water Services</h3>
+                <p>Find information about local water services.</p>
+            </a>
+
+            <a href="#" class="directory-card">
+                <div class="icon">💡</div>
+                <h3>Electricity</h3>
+                <p>Find electricity service information.</p>
+            </a>
+
+            <a href="#" class="directory-card">
+                <div class="icon">🗑️</div>
+                <h3>Waste Management</h3>
+                <p>Explore waste collection and cleanliness information.</p>
+            </a>
+
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <h2>VAZHIKAATTI</h2>
+        <p>Guiding Cities, Empowering Citizens.</p>
+        <p>© 2026 VazhiKaatti. Hackathon Project.</p>
+    </footer>
+
+</body>
+</html>
+
