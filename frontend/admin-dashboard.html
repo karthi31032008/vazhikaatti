@@ -122,10 +122,35 @@
 
         <br>
 
-        <section class="card" id="workers">
-            <h2>Worker Management</h2>
-            <p>View workers and monitor their assigned tasks and progress.</p>
-        </section>
+        
+<section class="card" id="workers">
+    <h2>Worker Management</h2>
+    <p>Create worker accounts and manage your team.</p>
+
+    <h3 style="margin-top:20px;color:#075e54;">Add New Worker</h3>
+
+    <form id="workerForm">
+        <label for="workerName">Worker Name</label>
+        <input type="text" id="workerName"
+               placeholder="Enter worker name" required>
+
+        <label for="workerEmail">Worker Email</label>
+        <input type="email" id="workerEmail"
+               placeholder="Enter worker email" required>
+
+        <label for="workerPassword">Temporary Password</label>
+        <input type="password" id="workerPassword"
+               placeholder="Minimum 8 characters"
+               minlength="8" required>
+
+        <button type="submit" class="action" id="createWorkerBtn">
+            Create Worker Account
+        </button>
+
+        <p id="workerMessage" style="margin-top:15px;"></p>
+    </form>
+</section>
+
 
         <br>
 
@@ -151,5 +176,53 @@
 
     </main>
 </div>
+    
+<script>
+document.getElementById("workerForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const message = document.getElementById("workerMessage");
+    const button = document.getElementById("createWorkerBtn");
+
+    const payload = {
+        name: document.getElementById("workerName").value.trim(),
+        email: document.getElementById("workerEmail").value.trim(),
+        password: document.getElementById("workerPassword").value
+    };
+
+    button.disabled = true;
+    button.textContent = "Creating...";
+
+    try {
+        const response = await fetch("/api/admin/create-worker", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "same-origin",
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Worker creation failed");
+        }
+
+        message.style.color = "green";
+        message.textContent = "Worker account created successfully!";
+
+        document.getElementById("workerForm").reset();
+
+    } catch (error) {
+        message.style.color = "red";
+        message.textContent = error.message;
+    } finally {
+        button.disabled = false;
+        button.textContent = "Create Worker Account";
+    }
+});
+</script>
+
 </body>
 </html>
