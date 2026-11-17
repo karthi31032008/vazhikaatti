@@ -1,4 +1,5 @@
 
+
 from flask import Flask, jsonify, send_from_directory, request, session
 from database import create_tables, get_db_connection
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -16,6 +17,27 @@ FRONTEND_DIR = os.path.abspath(
 )
 
 create_tables()
+@app.route("/api/admin/reset", methods=["POST"])
+def reset_admin():
+    setup_key = os.environ.get("ADMIN_SETUP_KEY")
+
+    if not setup_key:
+        return jsonify({"error": "Reset disabled"}), 403
+
+    provided_key = request.headers.get("X-Setup-Key", "")
+
+    if not __import__("hmac").compare_digest(provided_key, setup_key):
+        return jsonify({"error": "Unauthorized"}), 401
+
+    conn = get_db_connection()
+    conn.execute("DELETE FROM users WHERE role = 'admin'")
+    conn.commit()
+    conn.close()
+
+    return jsonify({
+        "success": True,
+        "message": "Admin account reset successfully"
+    })
 
 # Login protection
 def login_required(func):
