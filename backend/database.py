@@ -23,6 +23,37 @@ def create_tables():
             name TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
             password_hash TEXT NOT NULL
+            role TEXT NOT NULL DEFAULT 'user'
+        )
+    """)
+        # Add role column to existing users table
+    cursor.execute("PRAGMA table_info(users)")
+    user_columns = [row["name"] for row in cursor.fetchall()]
+
+    if "role" not in user_columns:
+        cursor.execute(
+            "ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'user'"
+        )
+
+    # Worker assignments table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS work_assignments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            complaint_id INTEGER NOT NULL,
+            worker_id INTEGER NOT NULL,
+            assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            status TEXT DEFAULT 'Assigned'
+        )
+    """)
+
+    # Worker location updates
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS worker_locations (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            worker_id INTEGER NOT NULL,
+            latitude REAL NOT NULL,
+            longitude REAL NOT NULL,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
 
