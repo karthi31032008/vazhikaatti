@@ -176,16 +176,55 @@
     </footer>
 
     <script>
-        document.getElementById("complaintForm")
-            .addEventListener("submit", function(event) {
+       
+document.getElementById("complaintForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
 
-                event.preventDefault();
+    const submitButton = this.querySelector("button[type='submit']");
+    const originalText = submitButton.textContent;
 
-                document.getElementById("message").textContent =
-                    "Demo form submitted! Backend connection is the next step.";
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
 
-                this.reset();
-            });
+    const complaintData = {
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        category: document.getElementById("category").value,
+        location: document.getElementById("location").value.trim(),
+        description: document.getElementById("description").value.trim()
+    };
+
+    try {
+        const response = await fetch("/api/complaints", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(complaintData)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || "Unable to submit complaint");
+        }
+
+        alert(
+            "Complaint submitted successfully!\n" +
+            "Your Complaint ID: " + result.complaint_id +
+            "\nStatus: " + result.status
+        );
+
+        this.reset();
+
+    } catch (error) {
+        alert("Error: " + error.message);
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+    }
+});
+
     </script>
 
 </body>
