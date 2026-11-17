@@ -186,6 +186,25 @@ def current_user():
 
     return jsonify(dict(user))
 
+# Protected dashboard pages
+
+@app.route("/user-dashboard.html")
+@role_required("user")
+def user_dashboard():
+    return send_from_directory(FRONTEND_DIR, "user-dashboard.html")
+
+
+@app.route("/worker-dashboard.html")
+@role_required("worker")
+def worker_dashboard():
+    return send_from_directory(FRONTEND_DIR, "worker-dashboard.html")
+
+
+@app.route("/admin-dashboard.html")
+@role_required("admin")
+def admin_dashboard():
+    return send_from_directory(FRONTEND_DIR, "admin-dashboard.html")
+
 
 # Homepage
 @app.route("/")
