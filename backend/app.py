@@ -80,7 +80,52 @@ def register():
     conn.close()
     return jsonify({"success": True, "message": "Registration successful"}), 201
 
+# Create admin account securely
+@app.route("/api/create-admin", methods=["POST"])
+def create_admin():
+    setup_key = os.environ.get("ADMIN_SETUP_KEY")
 
+    if not setup_key:
+        return jsonify({"error": "Admin setup is disabled"}), 403
+
+    provided_key = request.headers.get("X-Setup-Key", "")
+
+    if not __import__("hmac").compare_digest(provided_key, setup_key):
+        return jsonify({"error": "Unauthorized"}), 401
+
+    data = request.get_json(silent=True) or {}
+
+    name = str(data.get("name", "")).strip()
+    email = str(data.get("email", "")).strip().lower()
+    password = str(data.get("password", ""))
+
+    if not name or not email or len(password) < 12:
+        return jsonify({"error": "Name, email and 12-character password required"}), 400
+
+    conn = get_db_connection()
+
+    existing = conn.execute(
+        "SELECT id FROM users WHERE role = 'admin'"
+    ).fetchone()
+
+    if existing:
+        conn.close()
+        return jsonify({"error": "Admin account already exists"}), 409
+
+    password_hash = generate_password_hash(password)
+
+    conn.execute("""
+        INSERT INTO users (name, email, password_hash, role)
+        VALUES (?, ?, ?, 'admin')
+    """, (name, email, password_hash))
+
+    conn.commit()
+    conn.close()
+
+    return jsonify({
+        "success": True,
+        "message": "Admin account created"
+    }), 201
 # Login
 @app.route("/api/login", methods=["POST"])
 def login():
