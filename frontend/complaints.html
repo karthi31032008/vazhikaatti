@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Issues | VazhiKaatti</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .complaint-page {
+            padding: 45px 8%;
+            min-height: 75vh;
+        }
+
+        .complaint-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .complaint-heading h2 {
+            color: #075e54;
+            font-size: 36px;
+            margin: 12px 0;
+        }
+
+        .complaint-container {
+            max-width: 700px;
+            margin: auto;
+            padding: 35px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+        }
+
+        .complaint-container label {
+            display: block;
+            margin: 18px 0 8px;
+            font-weight: bold;
+            color: #123c38;
+        }
+
+        .complaint-container input,
+        .complaint-container select,
+        .complaint-container textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d7e5df;
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        .complaint-container textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 24px;
+            padding: 15px;
+            background: #075e54;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #168b55;
+        }
+
+        #message {
+            margin-top: 18px;
+            text-align: center;
+            color: #075e54;
+            font-weight: bold;
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #075e54;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media(max-width:600px) {
+            .complaint-container {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="1000075942.jpg" alt="VazhiKaatti Logo">
+            <div>
+                <h1>VAZHIKAATTI</h1>
+                <p>Guiding Cities, Empowering Citizens.</p>
+            </div>
+        </a>
+
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="local-services.html">Services</a>
+            <a href="community.html">Community</a>
+            <a href="complaints.html" class="active">Complaints</a>
+            <a href="track.html">Track</a>
+        </nav>
+    </header>
+
+    <main class="complaint-page">
+
+        <a href="index.html" class="back-home">← Back to Home</a>
+
+        <div class="complaint-heading">
+            <span>YOUR VOICE MATTERS</span>
+            <h2>Report a Public Issue</h2>
+            <p>Help make your community a better place.</p>
+        </div>
+
+        <div class="complaint-container">
+
+            <form id="complaintForm">
+
+                <label for="name">Your Name</label>
+                <input type="text" id="name"
+                       placeholder="Enter your name" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email"
+                       placeholder="Enter your email" required>
+
+                <label for="category">Issue Category</label>
+                <select id="category" required>
+                    <option value="">Select a category</option>
+                    <option>Road Damage</option>
+                    <option>Water Problem</option>
+                    <option>Garbage Collection</option>
+                    <option>Street Light</option>
+                    <option>Drainage Problem</option>
+                    <option>Other</option>
+                </select>
+
+                <label for="location">Issue Location</label>
+                <input type="text" id="location"
+                       placeholder="Enter area or location" required>
+
+                <label for="description">Issue Description</label>
+                <textarea id="description"
+                    placeholder="Describe the public issue..."
+                    required></textarea>
+
+                <button type="submit" class="submit-btn">
+                    Submit Complaint →
+                </button>
+
+                <p id="message"></p>
+
+            </form>
+
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <h2>VAZHIKAATTI</h2>
+        <p>Guiding Cities, Empowering Citizens.</p>
+        <p>© 2026 VazhiKaatti. Hackathon Project.</p>
+    </footer>
+
+    <script>
+        document.getElementById("complaintForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                document.getElementById("message").textContent =
+                    "Demo form submitted! Backend connection is the next step.";
+
+                this.reset();
+            });
+    </script>
+
+</body>
+</html>
