@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Login | VazhiKaatti</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f8f5;
+            color: #263b3b;
+        }
+
+        header {
+            background: white;
+            padding: 16px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px #00000010;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #075e54;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #263b3b;
+            margin-left: 18px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #168b55;
+        }
+
+        .container {
+            max-width: 460px;
+            margin: 55px auto;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px #0000000c;
+        }
+
+        h1 {
+            text-align: center;
+            color: #075e54;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #687b78;
+            margin-bottom: 25px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tabs button {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #d4e5dc;
+            border-radius: 8px;
+            background: #f1f8f5;
+            color: #075e54;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tabs button.active {
+            background: #075e54;
+            color: white;
+        }
+
+        label {
+            display: block;
+            margin: 14px 0 7px;
+            font-weight: bold;
+            color: #34534d;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbded6;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #168b55;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #075e54;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 24px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #168b55;
+        }
+
+        #message {
+            display: none;
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #e8f7ed;
+            color: #075e54;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        footer {
+            background: #123c38;
+            color: white;
+            padding: 22px;
+            text-align: center;
+            margin-top: 65px;
+        }
+
+        @media(max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 7px;
+                display: inline-block;
+            }
+
+            .login-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        <img src="1000075942.jpg" alt="VazhiKaatti Logo">
+        VazhiKaatti
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="local-services.html">Services</a>
+        <a href="community.html">Community</a>
+        <a href="about.html">About</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <div class="login-card">
+
+        <h1>Welcome!</h1>
+        <p class="subtitle">Access your VazhiKaatti account</p>
+
+        <div class="tabs">
+            <button id="loginTab" class="active" onclick="showLogin()">
+                Login
+            </button>
+
+            <button id="registerTab" onclick="showRegister()">
+                Register
+            </button>
+        </div>
+
+        <form id="accountForm">
+
+            <div id="nameField" style="display:none;">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter your name">
+            </div>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email"
+                   placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password"
+                   placeholder="Enter your password"
+                   minlength="8" required>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Login
+            </button>
+
+        </form>
+
+        <div id="message"></div>
+
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 VazhiKaatti | Guiding Cities, Empowering Citizens.</p>
+</footer>
+
+<script>
+    let currentMode = "login";
+
+    function showLogin() {
+        currentMode = "login";
+
+        document.getElementById("nameField").style.display = "none";
+        document.getElementById("submitBtn").textContent = "Login";
+
+        document.getElementById("loginTab").classList.add("active");
+        document.getElementById("registerTab").classList.remove("active");
+
+        document.getElementById("name").required = false;
+        document.getElementById("message").style.display = "none";
+    }
+
+    function showRegister() {
+        currentMode = "register";
+
+        document.getElementById("nameField").style.display = "block";
+        document.getElementById("submitBtn").textContent = "Create Account";
+
+        document.getElementById("loginTab").classList.remove("active");
+        document.getElementById("registerTab").classList.add("active");
+
+        document.getElementById("name").required = true;
+        document.getElementById("message").style.display = "none";
+    }
+
+    document.getElementById("accountForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const message = document.getElementById("message");
+
+        message.style.display = "block";
+
+        if (currentMode === "register") {
+            message.textContent =
+                "Registration demo completed. Backend connection is coming next.";
+        } else {
+            message.textContent =
+                "Login demo submitted. Actual account verification is not connected yet.";
+        }
+    });
+</script>
+
+</body>
+</html>
