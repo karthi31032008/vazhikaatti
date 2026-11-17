@@ -159,6 +159,46 @@ def login():
         "role": user["role"],
         "dashboard": dashboards.get(user["role"], "index.html")
     })
+    
+# Admin creates worker account
+@app.route("/api/admin/create-worker", methods=["POST"])
+@login_required
+@role_required("admin")
+def create_worker():
+    data = request.get_json(silent=True) or {}
+
+    name = str(data.get("name", "")).strip()
+    email = str(data.get("email", "")).strip().lower()
+    password = str(data.get("password", ""))
+
+    if not name or not email or len(password) < 8:
+        return jsonify({
+            "error": "Name, valid email and 8-character password required"
+        }), 400
+
+    password_hash = generate_password_hash(password)
+
+    conn = get_db_connection()
+
+    try:
+        conn.execute("""
+            INSERT INTO users (name, email, password_hash, role)
+            VALUES (?, ?, ?, 'worker')
+        """, (name, email, password_hash))
+
+        conn.commit()
+
+    except Exception:
+        conn.close()
+        return jsonify({"error": "Email already exists"}), 409
+
+    conn.close()
+
+    return jsonify({
+        "success": True,
+        "message": "Worker account created"
+    }), 201
+
 
 
 # Logout
