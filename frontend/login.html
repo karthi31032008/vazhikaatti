@@ -241,49 +241,91 @@
 </footer>
 
 <script>
-    let currentMode = "login";
+    
+let currentMode = "login";
 
-    function showLogin() {
-        currentMode = "login";
+function showLogin() {
+    currentMode = "login";
 
-        document.getElementById("nameField").style.display = "none";
-        document.getElementById("submitBtn").textContent = "Login";
+    document.getElementById("nameField").style.display = "none";
+    document.getElementById("submitBtn").textContent = "Login";
+    document.getElementById("loginTab").classList.add("active");
+    document.getElementById("registerTab").classList.remove("active");
+    document.getElementById("name").required = false;
+    document.getElementById("password").minLength = 8;
+    document.getElementById("message").style.display = "none";
+}
 
-        document.getElementById("loginTab").classList.add("active");
-        document.getElementById("registerTab").classList.remove("active");
+function showRegister() {
+    currentMode = "register";
 
-        document.getElementById("name").required = false;
-        document.getElementById("message").style.display = "none";
-    }
+    document.getElementById("nameField").style.display = "block";
+    document.getElementById("submitBtn").textContent = "Create Account";
+    document.getElementById("loginTab").classList.remove("active");
+    document.getElementById("registerTab").classList.add("active");
+    document.getElementById("name").required = true;
+    document.getElementById("password").minLength = 8;
+    document.getElementById("message").style.display = "none";
+}
 
-    function showRegister() {
-        currentMode = "register";
+document.getElementById("accountForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
 
-        document.getElementById("nameField").style.display = "block";
-        document.getElementById("submitBtn").textContent = "Create Account";
+    const message = document.getElementById("message");
+    const submitBtn = document.getElementById("submitBtn");
 
-        document.getElementById("loginTab").classList.remove("active");
-        document.getElementById("registerTab").classList.add("active");
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
 
-        document.getElementById("name").required = true;
-        document.getElementById("message").style.display = "none";
-    }
+    const endpoint = currentMode === "register"
+        ? "/api/register"
+        : "/api/login";
 
-    document.getElementById("accountForm").addEventListener("submit", function(event) {
-        event.preventDefault();
+    const payload = currentMode === "register"
+        ? { name, email, password }
+        : { email, password };
 
-        const message = document.getElementById("message");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Please wait...";
+    message.style.display = "block";
+    message.textContent = "Connecting to VazhiKaatti server...";
 
-        message.style.display = "block";
+    try {
+        const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "same-origin",
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Something went wrong");
+        }
 
         if (currentMode === "register") {
             message.textContent =
-                "Registration demo completed. Backend connection is coming next.";
+                "Account created successfully! Please login.";
+            showLogin();
+            message.style.display = "block";
         } else {
-            message.textContent =
-                "Login demo submitted. Actual account verification is not connected yet.";
+            message.textContent = "Login successful! Redirecting...";
+            window.location.href = data.dashboard;
         }
-    });
+
+    } catch (error) {
+        message.textContent = error.message;
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent =
+            currentMode === "register" ? "Create Account" : "Login";
+    }
+});
+
 </script>
 
 </body>
