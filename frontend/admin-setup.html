@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Setup | VazhiKaatti</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #e8f7ed;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: min(360px, 85%);
+            box-shadow: 0 4px 18px #0002;
+        }
+        input, button {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            margin: 9px 0;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+        }
+        button {
+            background: #075e54;
+            color: white;
+            border: 0;
+            cursor: pointer;
+        }
+        #message { overflow-wrap: anywhere; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>VazhiKaatti Admin Setup</h2>
+
+    <form id="adminForm">
+        <input id="setupKey" type="password"
+               placeholder="Admin Setup Key" required>
+
+        <input id="name" type="text"
+               placeholder="Admin Name" required>
+
+        <input id="email" type="email"
+               placeholder="Admin Email" required>
+
+        <input id="password" type="password"
+               placeholder="New Password (12+ characters)"
+               minlength="12" required>
+
+        <button type="submit">Create Admin Account</button>
+    </form>
+
+    <p id="message"></p>
+</div>
+
+<script>
+document.getElementById("adminForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const message = document.getElementById("message");
+    const button = this.querySelector("button");
+
+    button.disabled = true;
+    message.textContent = "Creating admin account...";
+
+    try {
+        const response = await fetch("/api/create-admin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Setup-Key": document.getElementById("setupKey").value
+            },
+            body: JSON.stringify({
+                name: document.getElementById("name").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                password: document.getElementById("password").value
+            })
+        });
+
+        const data = await response.json();
+        message.textContent = data.message || data.error || "Request completed.";
+
+        if (response.ok) {
+            this.reset();
+        }
+    } catch (error) {
+        message.textContent = "Connection error. Please try again.";
+    } finally {
+        button.disabled = false;
+    }
+});
+</script>
+</body>
+</html>
