@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Connect | VazhiKaatti</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f8f5;
+            color: #263b3b;
+        }
+
+        header {
+            background: white;
+            padding: 16px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px #00000010;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #075e54;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #263b3b;
+            margin-left: 18px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #168b55;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #075e54, #168b55);
+            color: white;
+            padding: 75px 8%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            line-height: 1.7;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 55px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #075e54;
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px #00000009;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card .icon {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #075e54;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #687b78;
+            line-height: 1.6;
+        }
+
+        .notice {
+            margin-top: 35px;
+            background: #e1f3e8;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            color: #075e54;
+            line-height: 1.7;
+        }
+
+        footer {
+            background: #123c38;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            margin-top: 65px;
+        }
+
+        @media(max-width: 650px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 7px;
+            }
+
+            .hero h1 {
+                font-size: 29px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        <img src="1000075942.jpg" alt="VazhiKaatti Logo">
+        VazhiKaatti
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="local-services.html">Services</a>
+        <a href="community.html">Community</a>
+        <a href="complaints.html">Complaints</a>
+        <a href="track.html">Track</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Connect With Your Community</h1>
+    <p>
+        Strong communities create better cities.
+        Discover local activities, share useful information
+        and stay connected with people around you.
+    </p>
+</section>
+
+<main class="container">
+
+    <h2 class="section-title">Explore Community Activities</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">🤝</div>
+            <h3>Volunteer Groups</h3>
+            <p>Discover community volunteering opportunities and social activities.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🌱</div>
+            <h3>Clean City Activities</h3>
+            <p>Learn about neighbourhood cleanliness and environmental initiatives.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📢</div>
+            <h3>Local Discussions</h3>
+            <p>Share useful community information and discuss local development.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🎉</div>
+            <h3>Community Events</h3>
+            <p>Explore local events, awareness programmes and public activities.</p>
+        </div>
+
+    </div>
+
+    <div class="notice">
+        <h3>Better Together, Better Cities!</h3>
+        <p>
+            VazhiKaatti aims to make community participation easier.
+            These sections currently contain demonstration content.
+        </p>
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 VazhiKaatti | Guiding Cities, Empowering Citizens.</p>
+</footer>
+
+</body>
+</html>
