@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | VazhiKaatti</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+            background: #f3f8f6;
+        }
+        .sidebar {
+            width: 245px;
+            background: #123c38;
+            color: white;
+            padding: 25px 18px;
+        }
+        .sidebar h2 { margin-bottom: 30px; }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 13px;
+            margin: 8px 0;
+            border-radius: 8px;
+        }
+        .sidebar a:hover { background: #168b55; }
+        .main { flex: 1; padding: 30px; }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px #0000000c;
+        }
+        .card h3 { color: #075e54; }
+        .number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #123c38;
+        }
+        .action {
+            display: inline-block;
+            background: #075e54;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 12px;
+            border: none;
+            cursor: pointer;
+        }
+        .table-wrap { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e5eeee;
+        }
+        th { background: #e8f7ed; color: #075e54; }
+        @media(max-width:650px) {
+            .dashboard { flex-direction: column; }
+            .sidebar { width: auto; }
+            .main { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+
+    <aside class="sidebar">
+        <h2>VazhiKaatti</h2>
+        <a href="admin-dashboard.html">🏠 Dashboard</a>
+        <a href="#complaints">📋 All Complaints</a>
+        <a href="#workers">👷 Manage Workers</a>
+        <a href="#users">👥 Manage Users</a>
+        <a href="#assign">📌 Assign Work</a>
+        <a href="#reports">📊 Reports</a>
+        <a href="index.html">↩ Home</a>
+    </aside>
+
+    <main class="main">
+        <h1>Admin Dashboard</h1>
+        <p>Monitor complaints, workers and community services.</p>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Total Users</h3>
+                <div class="number">--</div>
+            </div>
+            <div class="card">
+                <h3>Total Workers</h3>
+                <div class="number">--</div>
+            </div>
+            <div class="card">
+                <h3>Total Complaints</h3>
+                <div class="number">--</div>
+            </div>
+            <div class="card">
+                <h3>Pending Complaints</h3>
+                <div class="number">--</div>
+            </div>
+        </div>
+
+        <section class="card" id="complaints">
+            <h2>All Complaints</h2>
+            <p>View user complaints, descriptions, photos and locations.</p>
+        </section>
+
+        <br>
+
+        <section class="card" id="workers">
+            <h2>Worker Management</h2>
+            <p>View workers and monitor their assigned tasks and progress.</p>
+        </section>
+
+        <br>
+
+        <section class="card" id="users">
+            <h2>User Management</h2>
+            <p>View and manage registered citizen accounts.</p>
+        </section>
+
+        <br>
+
+        <section class="card" id="assign">
+            <h2>Assign Work</h2>
+            <p>Assign verified complaints to available workers.</p>
+            <p>Work assignment feature will be connected to the backend.</p>
+        </section>
+
+        <br>
+
+        <section class="card" id="reports">
+            <h2>Reports & Analytics</h2>
+            <p>Complaint statistics and worker performance reports will appear here.</p>
+        </section>
+
+    </main>
+</div>
+</body>
+</html>
